@@ -2,7 +2,7 @@
   "name": "mainstack-assessment",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "app.js",
   "scripts": {
     "start": "node dist/app.js",  
   "build": "tsc",
