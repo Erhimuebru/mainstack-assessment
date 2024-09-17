@@ -9,7 +9,6 @@ jest.mock('../../models/user');
 
 describe('User Registration', () => {
   
-  // Successful registration
   it('should register a new user', async () => {
     const req = {
       body: {
@@ -17,24 +16,37 @@ describe('User Registration', () => {
         password: 'password123',
       },
     } as Request;
-
+  
     const res = {
       status: jest.fn(() => res),
       json: jest.fn(),
     } as unknown as Response;
-
+  
     (bcrypt.hash as jest.Mock).mockResolvedValue('hashedpassword');
     (User as jest.Mocked<any>).mockReturnValue({
-      save: jest.fn().mockResolvedValue(true),
+      save: jest.fn().mockResolvedValue({
+        _id: 'userId123',
+        email: 'test@example.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
     });
-
+  
     await register(req, res);
-
+  
     expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith({ message: 'User registered' });
+    expect(res.json).toHaveBeenCalledWith({
+      message: 'User registered successfully',
+      user: {
+        id: 'userId123',
+        email: 'test@example.com',
+        createdAt: expect.any(Date),
+        updatedAt: expect.any(Date),
+      },
+    });
   });
+  
 
-  // Missing email or password
   it('should return 400 if email or password is missing', async () => {
     const req = {
       body: {
@@ -54,7 +66,7 @@ describe('User Registration', () => {
     expect(res.json).toHaveBeenCalledWith({ message: 'Email and password are required' });
   });
 
-  // Email already exists
+
   it('should return 409 if email already exists', async () => {
     const req = {
       body: {
@@ -73,10 +85,9 @@ describe('User Registration', () => {
     await register(req, res);
 
     expect(res.status).toHaveBeenCalledWith(409);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Email is already in exist' });
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email already exist' });
   });
 
-  // Server error (500)
   it('should return 500 if there is a server error', async () => {
     const req = {
       body: {
@@ -97,7 +108,6 @@ describe('User Registration', () => {
     await register(req, res);
   });
 
-  // Test password hashing
   it('should hash the password before saving the user', async () => {
     const req = {
       body: {
