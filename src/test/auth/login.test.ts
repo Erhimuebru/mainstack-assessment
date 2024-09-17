@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 import User from '../../models/user';
 import { login } from '../../controllers/auth';
 
-// Mock bcrypt and User model
 jest.mock('bcryptjs');
 jest.mock('../../models/user');
 jest.mock('jsonwebtoken');

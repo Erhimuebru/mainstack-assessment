@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs';
 import User from '../../models/user';
 import { register } from '../../controllers/auth';
 
-// Mock bcrypt and User model
 jest.mock('bcryptjs');
 jest.mock('../../models/user');
 
