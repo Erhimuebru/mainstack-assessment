@@ -1,5 +1,4 @@
 import { Router } from 'express';
-// import { createProduct, getProducts, updateProduct, deleteProduct } from '../../controllers/productController';
 import { createProduct, getProduct, deleteProduct, updateProduct } from '../../controllers/product'; 
 import { authenticate } from '../../middleware';
 

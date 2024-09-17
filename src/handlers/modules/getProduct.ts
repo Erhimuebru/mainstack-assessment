@@ -5,7 +5,7 @@ export const getProductById = async (id: string): Promise<any> => {
       const result = await getProduct(id);
       return result;
     } catch (error) {
-      console.error('Error fetching product in handler:', error);
+      // console.error('Error fetching product in handler:', error);
       throw new Error('Internal Server Error');
     }
   };
