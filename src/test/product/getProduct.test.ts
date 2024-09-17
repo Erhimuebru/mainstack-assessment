@@ -1,28 +1,35 @@
-// import { getProductById } from '../path/to/your/handler';
-import { getProduct } from '../../database/product';
-import { getProductById } from '../../handlers';
+import { getAllProducts } from '../../database/product';
+import { getAllProduct } from '../../handlers';
 
-// Mock the database function
+// Mocking the getAllProducts database function
 jest.mock('../../database/product', () => ({
-  getProduct: jest.fn()
+  getAllProducts: jest.fn()
 }));
 
-describe('getProductById', () => {
-  it('should successfully fetch a product', async () => {
-    const productId = '123';
-    const productData = { id: productId, name: 'Test Product' };
-    (getProduct as jest.Mock).mockResolvedValue(productData);
+describe('getAllProduct', () => {
+  it('should successfully fetch all products', async () => {
+    const productsData = [
+      { id: '123', name: 'Test Product 1' },
+      { id: '456', name: 'Test Product 2' }
+    ];
 
-    const result = await getProductById(productId);
+    // Mock resolved value for the getAllProducts database function
+    (getAllProducts as jest.Mock).mockResolvedValue(productsData);
 
-    expect(getProduct).toHaveBeenCalledWith(productId);
-    expect(result).toEqual(productData);
+    // Call the handler function to get all products
+    const result = await getAllProduct();
+
+    // Ensure that the database function getAllProducts was called
+    expect(getAllProducts).toHaveBeenCalled();
+    // Ensure that the result matches the mocked data
+    expect(result).toEqual(productsData);
   });
 
   it('should handle errors', async () => {
-    const productId = '123';
-    (getProduct as jest.Mock).mockRejectedValue(new Error('Database error'));
+    // Mock rejection for the getAllProducts database function
+    (getAllProducts as jest.Mock).mockRejectedValue(new Error('Database error'));
 
-    await expect(getProductById(productId)).rejects.toThrow('Internal Server Error');
+    // Ensure that the handler throws the correct error
+    await expect(getAllProduct()).rejects.toThrow('Internal Server Error');
   });
 });

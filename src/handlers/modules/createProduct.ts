@@ -9,7 +9,6 @@ export const createProducts = async (productData: {
   stock: number;
 }): Promise<any> => {
   try {
-    // Call the database function to create a product
     const result = await createProduct({
       name: productData.name,
       description: productData.description,
@@ -17,10 +16,8 @@ export const createProducts = async (productData: {
       stock: productData.stock
     });
 
-    // Return the result from the database
     return result;
   } catch (error) {
-    // console.error('Error creating product in handler:', error);
     throw new Error('Internal Server Error');
   }
 };

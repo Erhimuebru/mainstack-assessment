@@ -1,9 +1,5 @@
 import { Request, Response } from 'express';
-import Product from '../../../models/product';
 import { deleteProductById } from '../../../handlers';
-// import { deleteProductById } from '../../../handlers/modules/deleteProduct';
-
-
 
 export const deleteProduct = async (req: Request, res: Response): Promise<Response> => {
     try {

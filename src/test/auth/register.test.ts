@@ -73,7 +73,7 @@ describe('User Registration', () => {
     await register(req, res);
 
     expect(res.status).toHaveBeenCalledWith(409);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Email is already in use' });
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email is already in exist' });
   });
 
   // Server error (500)

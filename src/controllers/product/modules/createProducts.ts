@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { createProducts } from '../../../handlers';
 
-// Controller function to handle product creation
+
 export const createProduct = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { name, description, price, stock } = req.body;
 
-    // Call the handler function to create the product
+    
     const result = await createProducts({ name, description, price, stock });
     
     return res.status(201).json({

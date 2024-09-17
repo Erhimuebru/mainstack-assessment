@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import Product from '../../../models/product';
 import { updateProductById } from '../../../handlers';
 
 
