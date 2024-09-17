@@ -2,10 +2,11 @@
   "name": "mainstack-assessment",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
     "start": "node dist/app.js",  
-  "build": "tsc",
+    "build": "tsc",
+    "start:prod": "node dist/app.js",
   "dev": "nodemon src/app.ts",
   "test": "jest"
   },
